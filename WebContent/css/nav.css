@@ -1,0 +1,80 @@
+@charset "UTF-8";
+.Mhead.slim {
+    border-top: 4px solid #a51863;
+    border-bottom: 1px solid #e6e6e6;
+    background-color: #f4eef1;
+}
+.Cwrap {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+.Mhead.slim .mbox {
+    position: relative;
+    padding-left: 150px;
+    height: 94px;
+}
+.rbox {
+    background-color: #fff;
+    margin-top: -50px;
+    width: 380px;
+    min-height: 580px;
+    border: 1px solid #e0d7d5;
+    border-top: 2px solid #b46299;
+    -webkit-box-shadow: 0 0 4px 0 rgba(0,0,0,.2);
+    -moz-box-shadow: 0 0 4px 0 rgba(0,0,0,.2);
+    -ms-box-shadow: 0 0 4px 0 rgba(0,0,0,.2);
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.2);
+    position: absolute;
+    right: 80px;
+    z-index: 5;
+}
+
+.Lflr {
+    float: right;
+}
+
+.Cbtn.std_large {
+    height: 40px;
+    line-height: 40px;
+    border-width: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.Cbtn.std_large, .Cbtn.verify {
+    color: #fff;
+    background-color: #7f1f59;
+    border: 1px solid #7f1f59;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    padding: 0;
+    font-size: 14px;
+    text-align: center;
+}
+.Cbtn {
+    cursor: pointer;
+}
+button {
+
+	height:50px;
+	width:230px;
+    padding: 1px 6px;
+}
+user agent stylesheet
+input[type="button" i], input[type="submit" i], input[type="reset" i], input[type="file" i]::-webkit-file-upload-button, button {
+    align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    color: buttontext;
+    background-color: buttonface;
+    box-sizing: border-box;
+    padding: 2px 6px 3px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonface;
+    border-image: initial;
+}
