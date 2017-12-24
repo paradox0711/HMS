@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
+import org.json.*;
+
+import global.JDBC;
 
 /**
  * Servlet implementation class SetRoomType
@@ -39,27 +41,27 @@ public class SetRoomType extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=utf-8");
+		response.setContentType("application/json");
 		JSONObject res = new JSONObject();
 		String roomType = request.getParameter("roomtype");
+		Integer capacity = Integer.valueOf(request.getParameter("capacity"));
 		Integer surplus = Integer.valueOf(request.getParameter("surplus"));
 		Integer price = Integer.valueOf(request.getParameter("price"));
-		Connection cn = JDBC.getConnector();
-		String sql = "INSERT INTO roomtypes (roomtype, surplus, price) VALUES (?, ?, ?);";
 		try {
+			String sql = "INSERT INTO 客房类型 (类型, 容量, 余量, 价格) VALUES (?, ?, ?, ?);";
+			Connection cn = JDBC.getConnection(getServletContext());
 			PreparedStatement st = cn.prepareStatement(sql);
 			st.setString(1, roomType);
-			st.setInt(2, surplus);
-			st.setInt(3, price);
+			st.setInt(2, capacity);
+			st.setInt(3, surplus);
+			st.setInt(4, price);
 			st.execute();
 			st.close();
             cn.close();
             res.put("status", 200);
 		} catch (SQLException e) {
-			res.put("status", e.getErrorCode());
+			res.put("status", e.getMessage());
 		}
-		
 		response.getWriter().print(res);
 	}
 

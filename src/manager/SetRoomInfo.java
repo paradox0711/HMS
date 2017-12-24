@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
+import org.json.*;
+
+import global.JDBC;
 
 /**
  * Servlet implementation class setRoomInfo
@@ -34,16 +36,16 @@ public class SetRoomInfo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("application/json; charset=utf-8");
+		response.setContentType("application/json");
 		JSONObject res = new JSONObject();
-		Connection cn = JDBC.getConnector();
-		String sql = "SELECT roomtype FROM roomtypes;";
+		Connection cn = JDBC.getConnection(getServletContext());
+		String sql = "SELECT 类型 FROM 客房类型;";
 		try {
 			PreparedStatement st = cn.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
 			ArrayList<String> roomTypes = new ArrayList<String>();
 			while (rs.next()) {
-				roomTypes.add(rs.getString("roomtype"));
+				roomTypes.add(rs.getString("类型"));
 			}
             rs.close();
 			st.close();
@@ -60,8 +62,32 @@ public class SetRoomInfo extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		response.setContentType("application/json");
+		JSONObject res = new JSONObject();
+		String roomNum = request.getParameter("roomnum");
+		String floorNum = request.getParameter("floornum");
+		String roomType = request.getParameter("roomtype");
+		String orientation = request.getParameter("orientation");
+		String description = request.getParameter("description");
+		Integer available = Integer.valueOf(request.getParameter("available")); 
+		String roomid = floorNum + roomNum;
+		try {
+			String sql = "INSERT INTO 客房 (房号, 类型, 空置, 朝向, 描述) VALUES(?, ?, ?, ?, ?); ";
+			Connection cn = JDBC.getConnection(getServletContext());
+			PreparedStatement st = cn.prepareStatement(sql);
+			st.setString(1, roomid);
+			st.setString(2, roomType);
+			st.setInt(3, available);
+			st.setString(4, orientation);
+			st.setString(5, description);
+			st.execute();
+			st.close();
+			cn.close();
+			res.put("status", 200);
+		} catch (SQLException e) {
+			res.put("status", e.getMessage());
+		}
+		response.getWriter().print(res);
 	}
 
 }

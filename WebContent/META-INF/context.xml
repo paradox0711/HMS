@@ -3,11 +3,11 @@
     <Resource
         name = "jdbc/HMS"
         type = "javax.sql.DataSource"
-        maxActive = "4"
+        maxTotal = "8"
         minIdle = "2"
         maxWait = "5000"
         username = "root"
         password = "123123"
         driverClassName = "com.mysql.jdbc.Driver"
-        url = "jdbc:mysql://localhost:3306/hms"/>
+        url = "jdbc:mysql://localhost:3306/hms?useSSL=false"/>
 </Context>
