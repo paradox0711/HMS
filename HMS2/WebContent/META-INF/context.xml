@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Context reloadable = "true">
+    <Resource
+        name = "jdbc/HMS"
+        type = "javax.sql.DataSource"
+        maxTotal = "8"
+        minIdle = "2"
+        maxWait = "5000"
+        username = "root"
+        password = "961021"
+        driverClassName = "com.mysql.jdbc.Driver"
+        url = "jdbc:mysql://localhost:3306/hms?useSSL=false"/>
+</Context>
